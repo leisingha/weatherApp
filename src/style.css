@@ -30,7 +30,10 @@ main {
   grid-row: 2/3;
   grid-column: 2/3;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 3rem;
 }
 
 .searchBox {
@@ -73,4 +76,51 @@ input:hover {
   fill: #9e9ea7;
   width: 1rem;
   height: 1rem;
+}
+
+/* From Uiverse.io by sahilxkhadka */
+.weatherCard {
+  width: 342px;
+  height: 184px;
+  position: relative;
+  padding: 20px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.background {
+  fill: linear-gradient(90deg, #5936b4 0%, #362a84 100%);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.cloud {
+  position: absolute;
+  right: 0;
+  top: -12px;
+}
+
+.cloud svg {
+  height: 120px;
+}
+
+.weatherCard .tempVal {
+  font-size: 48px;
+  z-index: 2;
+}
+
+.weatherCard .info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.weatherCard .info .text-gray {
+  color: rgba(235, 235, 245, 0.6);
+}
+
+.weatherCard .info .info-right {
+  align-self: flex-end;
 }
