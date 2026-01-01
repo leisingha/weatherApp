@@ -24,10 +24,12 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 10vh;
 }
 
 main {
   padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
   grid-row: 2/3;
   grid-column: 2/3;
   display: flex;

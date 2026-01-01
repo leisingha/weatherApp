@@ -69,6 +69,13 @@ async function getAlertData(location) {
       .sort((a, b) => new Date(b.effective) - new Date(a.effective))[0];
 
     console.log(data);
+
+    // Check if a valid alert was found
+    if (!mostRecent) {
+      alertCard.style.display = "none";
+      return;
+    }
+
     alertEvent.textContent =
       mostRecent.event.charAt(0).toUpperCase() + mostRecent.event.slice(1);
     alertBadge.textContent = mostRecent.severity;
