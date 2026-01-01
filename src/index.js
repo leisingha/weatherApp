@@ -15,11 +15,12 @@ let alertDesc = document.querySelector(".alert-desc");
 let alertInstrruction = document.querySelector(".instruction-content");
 let alertCard = document.querySelector(".alert-card");
 
+let loaderElement = document.querySelector(".loader");
+
 const searchBox = document.querySelector("input");
 searchBox.addEventListener("keydown", (e) => {
   if (e.key == "Enter") {
-    getWeatherData(e.target.value);
-    getAlertData(e.target.value);
+    fetchAll(e.target.value);
   }
 });
 
@@ -79,5 +80,15 @@ async function getAlertData(location) {
   }
 }
 
-getWeatherData("Toronto");
-getAlertData("Toronto");
+async function fetchAll(location) {
+  loaderElement.style.display = "block";
+  try {
+    Promise.all([getWeatherData(location), getAlertData(location)]);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    loaderElement.style.display = "none";
+  }
+}
+
+fetchAll("Toronto");
