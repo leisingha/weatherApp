@@ -1,24 +1,20 @@
-// webpack.config.js
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: "development",
-  entry: "./src/script.js",
-  output: {
-    filename: "script.js",
-    path: path.resolve(__dirname, "dist"),
-    clean: true,
-  },
-  devtool: "eval-source-map",
-  devServer: {
-    watchFiles: ["./src/template.html"],
+  entry: {
+    app: "./src/script.js",
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
   ],
+  output: {
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    clean: true,
+  },
   module: {
     rules: [
       {
@@ -29,7 +25,6 @@ module.exports = {
         test: /\.html$/i,
         loader: "html-loader",
       },
-      // webpack.config.js
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: "asset/resource",
