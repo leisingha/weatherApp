@@ -9,7 +9,7 @@ let weatherDescElement = document.querySelector(".info-right");
 let locationElement = document.querySelector(".location");
 
 let alertEvent = document.querySelector(".alert-event");
-let alertBadge = document.querySelector(".serverity-badge");
+let alertBadge = document.querySelector(".severity-badge");
 let alertHeadline = document.querySelector(".alert-headline");
 let alertDesc = document.querySelector(".alert-desc");
 let alertInstrruction = document.querySelector(".instruction-content");
