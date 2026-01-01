@@ -8,10 +8,18 @@ let grayTextElement = document.querySelector(".text-gray");
 let weatherDescElement = document.querySelector(".info-right");
 let locationElement = document.querySelector(".location");
 
+let alertEvent = document.querySelector(".alert-event");
+let alertBadge = document.querySelector(".serverity-badge");
+let alertHeadline = document.querySelector(".alert-headline");
+let alertDesc = document.querySelector(".alert-desc");
+let alertInstrruction = document.querySelector(".instruction-content");
+let alertCard = document.querySelector(".alert-card");
+
 const searchBox = document.querySelector("input");
 searchBox.addEventListener("keydown", (e) => {
   if (e.key == "Enter") {
     getWeatherData(e.target.value);
+    getAlertData(e.target.value);
   }
 });
 
@@ -39,4 +47,37 @@ async function getWeatherData(location) {
   }
 }
 
+async function getAlertData(location) {
+  try {
+    const response = await fetch(
+      `http://api.weatherapi.com/v1/alerts.json?key=fa016dd8972641d5b3d33653253112&q=${location}`
+    );
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    data = await response.json();
+    // Check if there are any alerts
+    if (!data.alerts || !data.alerts.alert || data.alerts.alert.length === 0) {
+      alertCard.style.display = "none";
+      return;
+    } else {
+      alertCard.style.display = ""; // Show if there are alerts
+    }
+    const mostRecent = data.alerts.alert
+      .filter(
+        (a) => new Date(a.expires) > new Date() && a.desc?.trim().length > 10
+      )
+      .sort((a, b) => new Date(b.effective) - new Date(a.effective))[0];
+
+    console.log(data);
+    alertEvent.textContent =
+      mostRecent.event.charAt(0).toUpperCase() + mostRecent.event.slice(1);
+    alertBadge.textContent = mostRecent.severity;
+    alertHeadline.textContent = mostRecent.headline;
+    alertDesc.textContent = mostRecent.desc;
+    alertInstrruction.textContent = mostRecent.instruction;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 getWeatherData("Toronto");
+getAlertData("Toronto");
